@@ -4,12 +4,12 @@ using System.Net.Sockets;
 namespace ConsoleApp1
 {
     /// <summary>
-    /// 
+    /// Вспомогательный класс для работы с Ip.
     /// </summary>
     internal static class IpHelper
     {
         /// <summary>
-        /// Логическое "И" для Ip-адресса и маски
+        /// Логическое "И" для Ip-адресса и маски.
         /// </summary>
         internal static string CalculateLogicalAnd(int[] ipAddress, int[] mask)
         {
@@ -22,7 +22,7 @@ namespace ConsoleApp1
         }
 
         /// <summary>
-        /// Проверка есть ли в Dictionary найденный Ip, если нет - создает новую запись
+        /// Проверка есть ли в Dictionary найденный Ip, если нет - создает новую запись.
         /// </summary>
         internal static void AddIpInDictionary(Dictionary<IPAddress, int> sortedDictionary, IPAddress ip)
         {
@@ -39,7 +39,7 @@ namespace ConsoleApp1
 
         /// <summary>
         /// Проверка входит ли Ip-адрес из файла
-        /// в требуемый диапазон
+        /// в требуемый диапазон.
         /// </summary>
         internal static bool CheckRangeIp(IPAddress addressStart, IPAddress addressMask, IPAddress logIp)
         {
@@ -59,10 +59,10 @@ namespace ConsoleApp1
         }
 
         /// <summary>
-        /// 
+        /// Получение параметра --address-start из строки.
         /// </summary>
-        /// <param name="ip"></param>
-        /// <returns></returns>
+        /// <param name="ip">Текстовое представление Ip-адреса.</param>
+        /// <returns>Ip-адрес.</returns>
         internal static IPAddress? GetAddressStart(string ip)
         {
             if (ip == null)
@@ -84,11 +84,11 @@ namespace ConsoleApp1
         }
 
         /// <summary>
-        /// 
+        /// Получение Ip-адреса маски из строки.
         /// </summary>
-        /// <param name="args"></param>
-        /// <param name="startIp"></param>
-        /// <returns></returns>
+        /// <param name="maskFromArgs">Полученная маска из параметра.</param>
+        /// <param name="startIp">Ip-адрес нижнего диапазона.</param>
+        /// <returns>Ip-адрес маски.</returns>
         internal static IPAddress GetMaskAddress(string maskFromArgs, IPAddress startIp)
         {
             int numberForMask = 0;
@@ -114,10 +114,10 @@ namespace ConsoleApp1
         }
 
         /// <summary>
-        /// 
+        /// Преобразование числового представления маски в Ip-адрес.
         /// </summary>
-        /// <param name="maskInt"></param>
-        /// <returns></returns>
+        /// <param name="maskInt">Числовое представление маски.</param>
+        /// <returns>Ip-адрес.</returns>
         private static IPAddress ConvertedMask(int maskInt)
         {
             char[] maskChar = new char[32];

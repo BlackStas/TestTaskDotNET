@@ -3,13 +3,16 @@ using System.Net;
 
 namespace TestTaskDotNET
 {
+    /// <summary>
+    /// Класс для работы с файлом.
+    /// </summary>
     internal class WorkWithFiles
     {
         /// <summary>
-        /// 
+        /// Считывает текст из файла.
         /// </summary>
-        /// <param name="pathToRead"></param>
-        /// <returns></returns>
+        /// <param name="pathToRead">Путь к файлу.</param>
+        /// <returns>Массив строк файла.</returns>
         internal string[] ReadFromFile(string pathToRead) 
         {
             if (File.Exists(pathToRead))
@@ -23,19 +26,19 @@ namespace TestTaskDotNET
 
         
         /// <summary>
-        /// 
+        /// Обрабатывает текст файла по заданным параметрам.
         /// </summary>
-        /// <param name="text">Считываемый файл</param>
-        /// <param name="addressStart">Нижняя грацина Ip из параметра</param>
-        /// <param name="addressMask">Маска из параметров</param>
-        /// <param name="timeStart">Нижняя граница времени из параметров</param>
-        /// <param name="timeEnd">Верхняя граница времени из параметров</param>
-        /// <returns>Строку, которая будет записана в файл</returns>
-        internal string SortText(string[] text, IPAddress addressStart,IPAddress addressMask, DateTime timeStart, DateTime timeEnd)
+        /// <param name="rows">Массив строк файла.</param>
+        /// <param name="addressStart">Нижняя грацина Ip из параметра.</param>
+        /// <param name="addressMask">Маска из параметров.</param>
+        /// <param name="timeStart">Нижняя граница времени из параметров.</param>
+        /// <param name="timeEnd">Верхняя граница времени из параметров.</param>
+        /// <returns>Содержимое обработанного файла.</returns>
+        internal string SortText(string[] rows, IPAddress addressStart,IPAddress addressMask, DateTime timeStart, DateTime timeEnd)
         {
             var sortedText = new Dictionary<IPAddress,int>();
 
-            foreach (var line in text)
+            foreach (var line in rows)
             {
                 var stringIp = GetIpFromTextLine(line);
                 var ipFromFile = IPAddress.Parse(stringIp);
@@ -55,28 +58,32 @@ namespace TestTaskDotNET
         }
 
         /// <summary>
-        /// 
+        /// Получает текстовое представление Ip-адреса из строки файла.
         /// </summary>
-        /// <param name="line"></param>
-        /// <returns></returns>
+        /// <param name="line">Строка файла.</param>
+        /// <returns>Текстовое представление Ip.</returns>
         private string GetIpFromTextLine(string line)
         {
             return line.Substring(0, line.IndexOf(':'));
         }
         
         /// <summary>
-        /// 
+        /// Сохранение текста в файл.
         /// </summary>
-        /// <param name="sortedText"></param>
-        /// <param name="pathToSave"></param>
+        /// <param name="sortedText">Сохраняемый текст.</param>
+        /// <param name="pathToSave">Путь к файлу.</param>
         internal void SaveText(string sortedText, string pathToSave)
         {
             File.WriteAllText(pathToSave, sortedText);
         }
 
         /// <summary>
-        /// Проверка входит ли дата обращения Ip в необходимый диапазон
+        /// Проверяет входит ли дата обращения Ip в необходимый диапазон.
         /// </summary>
+        /// <param name="timeFile">Время обращения из текста.</param>
+        /// <param name="timeStart">Начальная граница времени.</param>
+        /// <param name="timeEnd">Конечная граница времени.</param>
+        /// <returns>Входит ли дата в диапазон.</returns>
         private bool IsDateInRange(DateTime timeFile, DateTime timeStart, DateTime timeEnd)
         {
             if (timeFile >= timeStart && timeFile <= timeEnd)
